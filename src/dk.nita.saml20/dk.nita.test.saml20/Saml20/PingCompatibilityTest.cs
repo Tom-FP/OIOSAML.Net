@@ -19,6 +19,7 @@ namespace dk.nita.test.Saml20
     public class PingCompatibilityTest
     {
         [Test]
+        [Ignore] // File not found: c:\tmp\pingassertion.txt
         public void DecryptPingAssertion()
         {
             // Load the assertion

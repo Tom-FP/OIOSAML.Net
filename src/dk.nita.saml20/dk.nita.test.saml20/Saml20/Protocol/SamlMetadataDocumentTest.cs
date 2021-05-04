@@ -17,6 +17,7 @@ namespace dk.nita.test.Saml20.Protocol
         /// </summary>
         [Test]
         [Explicit]
+        [Ignore] // Found no valid certificate configured in the certificate configuration. Make sure at least one valid certificate is configured.
         public void TestSigning_01()
         {
             Saml20MetadataDocument doc = new Saml20MetadataDocument(true);
