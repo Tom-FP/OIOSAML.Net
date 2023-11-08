@@ -26,7 +26,7 @@ namespace dk.nita.saml20.Specification
         {
             bool useMachineContext = false;
             X509ChainPolicy chainPolicy = new X509ChainPolicy();
-            chainPolicy.RevocationMode = X509RevocationMode.Online;
+            chainPolicy.RevocationMode = X509RevocationMode.NoCheck;  // TODO: Online
             X509CertificateValidator defaultCertificateValidator = X509CertificateValidator.CreateChainTrustValidator(useMachineContext, chainPolicy);
 
             try

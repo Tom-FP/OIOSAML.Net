@@ -1,0 +1,6 @@
+- Needed to use a secure certificate for the WebSiteDemo (Localhost)
+-- Run "IisExpressAdminCmd.exe setupsslUrl -url:https://localhost:20002/ -UseSelfSigned 
+- Disabled "chainPolicy.RevocationMode.Online" (The NemID CA is offline )
+- Update metadata to redirect to "localhost:20002 (note oiosaml-net.dk:20002)
+- Set ServiceProvider.Server="https://localhost:20002"
+- Unit test and Integration test doesn't work (out-of-the-box)
