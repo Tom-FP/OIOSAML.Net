@@ -129,6 +129,7 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="idp-metadata\acadre-local-idp.xml" />
+    <Content Include="idp-metadata\idp-metadata.xml" />
     <Content Include="idp-metadata\test-devtest4-idp-metadata.xml" />
     <Content Include="idp-metadata\local_demo_idp.xml" />
     <Content Include="Web.config">
