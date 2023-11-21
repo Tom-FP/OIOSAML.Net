@@ -1,3 +1,4 @@
+using dk.nita.saml20.config;
 using dk.nita.saml20.identity;
 using dk.nita.saml20.Profiles.BasicPrivilegeProfile;
 using dk.nita.saml20.Profiles.DKSaml20.Attributes;
@@ -72,11 +73,19 @@ namespace dk.nita.saml20.Utils
         public static IEnumerable<Privilege> GetBasicPrivilegeProfilePrivileges(Saml20Identity identity)
         {
             if (identity.HasAttribute(DKSaml20BasicPrivilegeProfileIntermediateAttribute.NAME))
-            {
+            {            
                 var intermetiateProfiles = identity[DKSaml20BasicPrivilegeProfileIntermediateAttribute.NAME];
                 foreach (var profile64 in intermetiateProfiles)
                 {
                     var basicPrivilegeProfileXml = Encoding.UTF8.GetString(Convert.FromBase64String(profile64.AttributeValue[0]));
+
+                    if (string.IsNullOrWhiteSpace(basicPrivilegeProfileXml) || !basicPrivilegeProfileXml.Contains(Constants.XmlNamespace))
+                    {
+                        var error = new Privilege("Failed to deseralize: wrong or missing namespace. " + Constants.XmlNamespace + " expected", ":-(");
+                        yield return error;
+                        yield break;
+                    }
+
                     var basicPrivilegeProfile = Serialization.DeserializeFromXmlString<PrivilegeListType>(basicPrivilegeProfileXml);
 
                     foreach (var privilegeGroup in basicPrivilegeProfile.PrivilegeGroups)
@@ -87,7 +96,7 @@ namespace dk.nita.saml20.Utils
                                 new Profiles.BasicPrivilegeProfile.Constraint(x.Name, x.Value)));
                         }
                     }
-                }
+                }               
             }
 
             if (identity.HasAttribute(DKSaml20BasicPrivilegeProfileSimpleAttribute.NAME))
